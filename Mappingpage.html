@@ -27,10 +27,10 @@
   </head>
   <body>
 <h1>Map Map Dora</h1>
-<div id="map" style="width: 50%; height: 50%;"></div>
+<div id="map" style="width: 100%; height: 50%;"></div>
 <script>
 
-	var map = L.map('map').setView([51.0447, -114.0719], 13);
+	var map = L.map('map').setView([51.0447, -114.0719], 11);
 
 	var tiles = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
 		maxZoom: 18,
@@ -42,6 +42,11 @@
 	}).addTo(map);
 
 </script>
+<form id="bounds" action="/action_page.php">
+  Min Year: <input type="text" name="lb"><br>
+  Max Year: <input type="text" name="ub"><br><br>
+  <input type="button" onclick="myFunction()" value="Submit">
+</form>
 
 </script>
 
