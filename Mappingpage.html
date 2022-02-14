@@ -41,6 +41,22 @@
 		zoomOffset: -1
 	}).addTo(map);
 
+  $.ajax({
+      url: "https://data.calgary.ca/resource/c2es-76ed.geojson?issueddate=1999-06-23T00:00:00.000",
+      type: "GET",
+      data: {
+        "$limit" : 5000,
+        "$$app_token" : "YOURAPPTOKENHERE"
+      }
+  }).done(function(data) {
+    alert("Retrieved " + data.length + " records from the dataset!");
+    console.log(data);
+  });
+  window.onload = function() {
+       //when the document is finished loading, replace everything
+       //between the <a ...> </a> tags with the value of splitText
+   document.getElementById("data").innerHTML=splitText;
+}
 </script>
 <form id="bounds" action="/action_page.php">
   Min Year: <input type="text" name="lb"><br>
@@ -51,5 +67,6 @@
 </script>
 
 </script>
+<a id="<data value=""></data>" href = Mappingpage.html></a>
   </body>
 </html>
