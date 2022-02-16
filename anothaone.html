@@ -1,0 +1,29 @@
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="path/from/html/page/to/jquery.min.js"></script>
+
+  </head>
+  <body>
+    <script type="text/javascript">
+
+      $.ajax({
+          url: "https://data.calgary.ca/resource/c2es-76ed.json",
+          type: "GET",
+          data: {
+            "$limit" : 5000,
+            "$$app_token" : "YOURAPPTOKENHERE"
+          }
+      }).done(function(data) {
+        alert("Retrieved " + data.length + " records from the dataset!");
+        console.log(data);
+      });
+
+
+      document.write(data);
+    </script>
+  </body>
+</html>

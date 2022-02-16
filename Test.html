@@ -31,8 +31,9 @@
 
 
 
-<div id="map" style="width: 600px; height: 400px;"></div>
+<!-- <div id="map" style="width: 600px; height: 400px;"></div>-->
 <script>
+
 
 	var map = L.map('map').setView([51.505, -0.09], 13);
 
@@ -44,9 +45,21 @@
 		tileSize: 512,
 		zoomOffset: -1
 	}).addTo(map);
-
+document.write("hello");
 </script>
 
+<script type="text/javascript">
+  var data;
+
+  $.ajax({
+      url: "https://data.calgary.ca/resource/c2es-76ed.json",
+      type: "GET",
+      data: {
+        "$limit" : 5000,
+        "$$app_token" : "z9skgobBgkz2vppsw41rHZ450"
+      })
+      document.write(data);
+</script>
 
 
 </body>

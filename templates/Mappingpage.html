@@ -26,9 +26,14 @@
 	</style>
   </head>
   <body>
+<script src='jquery-3.2.1.min.js'></script>
 <h1>Map Map Dora</h1>
 <div id="map" style="width: 100%; height: 50%;"></div>
 <script>
+  var dateMax = new Date();
+  var dateMin = new Date(1980, 0, 1);
+
+
 
 	var map = L.map('map').setView([51.0447, -114.0719], 11);
 
@@ -41,22 +46,48 @@
 		zoomOffset: -1
 	}).addTo(map);
 
+  var geojsonFeature = {
+      "type": "Feature",
+      "properties": {
+          "name": "Coors Field",
+          "amenity": "Baseball Stadium",
+          "popupContent": "This is where the Rockies play!"
+      },
+      "geometry": {
+          "type": "Point",
+          "coordinates": [51.099404, -114.075621]
+      }
+  };
+
+  L.geoJSON(geojsonFeature).addTo(map);
+
+
+  var myStyle = {
+    "color": "#ff7800",
+    "weight": 5,
+    "opacity": 0.65
+};
+
   $.ajax({
-      url: "https://data.calgary.ca/resource/c2es-76ed.geojson?issueddate=1999-06-23T00:00:00.000",
+      url: "https://data.calgary.ca/resource/c2es-76ed.geojson",
       type: "GET",
       data: {
-        "$limit" : 5000,
-        "$$app_token" : "YOURAPPTOKENHERE"
+        "$limit" : 10,
+        "$$app_token" : "z9skgobBgkz2vppsw41rHZ450"
       }
   }).done(function(data) {
     alert("Retrieved " + data.length + " records from the dataset!");
     console.log(data);
   });
+
+  L.geoJSON(data,{style:myStyle}).addTo(map);
   window.onload = function() {
        //when the document is finished loading, replace everything
        //between the <a ...> </a> tags with the value of splitText
    document.getElementById("data").innerHTML=splitText;
 }
+var Test = "Success";
+
 </script>
 <form id="bounds" action="/action_page.php">
   Min Year: <input type="text" name="lb"><br>
@@ -65,8 +96,11 @@
 </form>
 
 </script>
+<script>
+  document.write();
 
 </script>
-<a id="<data value=""></data>" href = Mappingpage.html></a>
+</script>
+<a id="splitText" href = Mappingpage.html>hey</a>
   </body>
 </html>
