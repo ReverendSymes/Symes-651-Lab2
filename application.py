@@ -34,7 +34,7 @@ def index():
     if request.method == "POST":
          ub = request.form.get("ub")
          lb = request.form.get("lb")
-         results = client.get(f"c2es-76ed?issueddate={lb}", limit=2000)
+         results = client.get(f"c2es-76ed.json?permitnum=BP1999-07510", limit=2000)
          #results = client.get("c2es-76ed", limit=2000)
          print(lb)
 
