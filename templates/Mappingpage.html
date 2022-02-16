@@ -12,6 +12,7 @@
   integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
   crossorigin=""></script>
 
+
   <style>
 		html, body {
 			height: 100%;
@@ -26,10 +27,14 @@
 	</style>
   </head>
   <body>
+    <script>
+    var hey = {{Gengeojson| tojson}};
+    </script>
 <script src='jquery-3.2.1.min.js'></script>
 <h1>Map Map Dora</h1>
 <div id="map" style="width: 100%; height: 50%;"></div>
 <script>
+
   var dateMax = new Date();
   var dateMin = new Date(1980, 0, 1);
 
@@ -46,61 +51,35 @@
 		zoomOffset: -1
 	}).addTo(map);
 
-  var geojsonFeature = {
-      "type": "Feature",
-      "properties": {
-          "name": "Coors Field",
-          "amenity": "Baseball Stadium",
-          "popupContent": "This is where the Rockies play!"
-      },
-      "geometry": {
-          "type": "Point",
-          "coordinates": [51.099404, -114.075621]
-      }
+  var geojsonMarkerOptions = {
+      radius: 8,
+      fillColor: "#ff7800",
+      color: "#000",
+      weight: 1,
+      opacity: 1,
+      fillOpacity: 0.8
   };
 
-  L.geoJSON(geojsonFeature).addTo(map);
 
-
-  var myStyle = {
-    "color": "#ff7800",
-    "weight": 5,
-    "opacity": 0.65
-};
-
-  $.ajax({
-      url: "https://data.calgary.ca/resource/c2es-76ed.geojson",
-      type: "GET",
-      data: {
-        "$limit" : 10,
-        "$$app_token" : "z9skgobBgkz2vppsw41rHZ450"
+  L.geoJSON(hey, {
+      pointToLayer: function (feature, latlng) {
+          return L.circleMarker(latlng, geojsonMarkerOptions);
       }
-  }).done(function(data) {
-    alert("Retrieved " + data.length + " records from the dataset!");
-    console.log(data);
-  });
+  }).addTo(map);
 
-  L.geoJSON(data,{style:myStyle}).addTo(map);
-  window.onload = function() {
-       //when the document is finished loading, replace everything
-       //between the <a ...> </a> tags with the value of splitText
-   document.getElementById("data").innerHTML=splitText;
-}
-var Test = "Success";
+
 
 </script>
-<form id="bounds" action="/action_page.php">
-  Min Year: <input type="text" name="lb"><br>
-  Max Year: <input type="text" name="ub"><br><br>
-  <input type="button" onclick="myFunction()" value="Submit">
+<form action = "{{url_for('index')}}" method = "post">
+  Min Year: <input type="date" name="lb"><br>
+  Max Year: <input type="date" name="ub"><br><br>
+  <button>ClickWhenDone</button>
 </form>
 
 </script>
 <script>
-  document.write();
 
 </script>
 </script>
-<a id="splitText" href = Mappingpage.html>hey</a>
   </body>
 </html>
