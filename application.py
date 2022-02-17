@@ -29,7 +29,7 @@ def index():
     # First 2000 results, returned as JSON from API / converted to Python list of
     # dictionaries by sodapy.
     if request.method == "GET":
-        results = client.get("c2es-76ed", limit=2000)
+        results = client.get("c2es-76ed" "&issueddate < ub", limit=2000)
 
     if request.method == "POST":
          ub = request.form.get("ub")

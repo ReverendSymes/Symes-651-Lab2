@@ -1,5 +1,9 @@
 import pandas as pd
 from sodapy import Socrata
+
+#from bokeh.plotting import *
+#from bokeh.models import HoverTool
+from collections import OrderedDict
 # Unauthenticated client only works with public data sets. Note 'None'
 # in place of application token, and no username or password:
 client = Socrata("data.calgary.ca", None)
@@ -12,7 +16,10 @@ client = Socrata("data.calgary.ca", None)
 
 # First 2000 results, returned as JSON from API / converted to Python list of
 # dictionaries by sodapy.
-results = client.get("c2es-76ed", limit=1000)
+#results = client.get("c2es-76ed", limit=5000)#, query = ("&issueddate<2020-09-09"))
+query = ("https://data.calgary.ca/resource/c2es-76ed.json?"
+    "&issueddate=2020-09-09")
+results = pd.read_json(query)
 
 # Convert to pandas DataFrame
 df = pd.DataFrame.from_records(results)
@@ -50,5 +57,5 @@ def df_to_geojson(df, properties, lat='latitude', lon='longitude'):
 cols = ['issueddate', 'workclassgroup', 'contractorname', 'communityname',"originaladdress"]
 Gengeojson = df_to_geojson(df_geo, cols)
 print(Gengeojson)
-import IPython
-IPython.display.display({'application/geo+json': Gengeojson}, raw=True)
+#import IPython
+#IPython.display.display({'application/geo+json': Gengeojson}, raw=True)
