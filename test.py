@@ -27,7 +27,7 @@ df = pd.DataFrame.from_records(results)
 df['latitude'] = df['latitude'].astype(float)
 df['longitude'] = df['longitude'].astype(float)
 
-
+#
 for i in range(0,len(df['latitude'])):
     for j in range(0,len(df['longitude'])):
         if df['latitude'][i] == df['latitude'][j]:

@@ -29,12 +29,18 @@ def index():
     # First 2000 results, returned as JSON from API / converted to Python list of
     # dictionaries by sodapy.
     if request.method == "GET":
-        results = client.get("c2es-76ed", limit=2000)
+        query = ("https://data.calgary.ca/resource/c2es-76ed.json?")
+            #"$where=date+between+'2015-01-10T00:00:00'+and+'2017-01-10T00:00:00'")
+            #"&issueddate=2019-09-09")
+        results = pd.read_json(query)
 
     if request.method == "POST":
          ub = request.form.get("ub")
          lb = request.form.get("lb")
          results = client.get(f"c2es-76ed.json?permitnum=BP1999-07510", limit=2000)
+         query = ("https://data.calgary.ca/resource/c2es-76ed.json?"
+             f"&issueddate={lb}")
+         results = pd.read_json(query)
          #results = client.get("c2es-76ed", limit=2000)
          print(lb)
 
@@ -43,6 +49,7 @@ def index():
     df['latitude'] = df['latitude'].astype(float)
     df['longitude'] = df['longitude'].astype(float)
 
+#Bump same place values a little bit to make it nicer.
     for i in range(0,len(df['latitude'])):
         for j in range(0,len(df['longitude'])):
             if df['latitude'][i] == df['latitude'][j]:

@@ -28,6 +28,11 @@
 			max-width: 100%;
 			max-height: 100%;
 		}
+    body {
+      text-align: center;
+      background-color: teal;
+      color: white;
+    }
 	</style>
   </head>
   <body>
@@ -35,7 +40,8 @@
     var hey = {{Gengeojson| tojson}};
     </script>
 <script src='jquery-3.2.1.min.js'></script>
-<h1>Map Map Dora</h1>
+<h1>Calgary Permit Maps</h1>
+<h2>For Permit Enthusiasts Only</h2>
 <div id="map" style="width: 100%; height: 50%;"></div>
 <script>
 
@@ -70,29 +76,29 @@
           layer.bindPopup(feature.properties.issueddate + feature.properties.contractorname);
       }
   }
-// //Code for silly easy geoJSON Labels
-//   L.geoJSON(hey, {
+//Code for silly easy geoJSON Labels
+  L.geoJSON(hey, {
+
+      pointToLayer: function (feature, latlng) {
+          return L.circleMarker(latlng, geojsonMarkerOptions);
+      },
+      onEachFeature: onEachFeature
+  }).addTo(map);
+
+// var clusty = L.geoJson(hey, {
+//   pointToLayer: function(feature,latlng){
+//     var marker = L.marker(latlng);
+//     marker.bindPopup(feature.properties.issueddate);
+//     //var clusters = L.markerClusterGroup();
+//     //map.addLayer(clusters);
+//     return marker;
+//     onEachFeature: onEachFeature
+//   }
 //
-//       pointToLayer: function (feature, latlng) {
-//           return L.circleMarker(latlng, geojsonMarkerOptions);
-//       },
-//       onEachFeature: onEachFeature
-//   }).addTo(map);
-
-var clusty = L.geoJson(hey, {
-  pointToLayer: function(feature,latlng){
-    var marker = L.marker(latlng);
-    marker.bindPopup(feature.properties.issueddate);
-    //var clusters = L.markerClusterGroup();
-    //map.addLayer(clusters);
-    return marker;
-    onEachFeature: onEachFeature
-  }
-
-  //var clusters = L.markerClusterGroup();
-  //clusters.addLayer(clusty)
-   //map.addLayer(clusters);
-}).addTo(map);
+//   //var clusters = L.markerClusterGroup();
+//   //clusters.addLayer(clusty)
+//    //map.addLayer(clusters);
+// }).addTo(map);
 // var clusters = L.markerClusterGroup();
 //clusters.addLayer(clusty);
 //  map.addLayer(clusters);
