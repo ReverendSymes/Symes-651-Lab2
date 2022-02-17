@@ -3,20 +3,18 @@
   <head>
     <meta charset="utf-8">
     <title>Mapping Page</title>
-
+<!--Leaflet tutorials  were integral and embedded in the code below
+https://leafletjs.com/examples.html was an incredible resource.-->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
       integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
       crossorigin=""/>
-      <link rel="stylesheet" href="./MarkerCluster.css" />
-
 
       <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
   integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
   crossorigin=""></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/OverlappingMarkerSpiderfier-Leaflet/0.2.6/oms.min.js"></script>
-    <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/"></script>
-      <script src="./leaflet.markercluster.js"></script>
+
+
   <style>
 		html, body {
 			height: 100%;
@@ -40,7 +38,7 @@
   </head>
   <body>
     <script>
-    var hey = {{Gengeojson| tojson}};
+    var QueryData = {{Gengeojson| tojson}};
     </script>
 <script src='jquery-3.2.1.min.js'></script>
 <h1>Calgary Permit Maps</h1>
@@ -76,11 +74,11 @@
   function onEachFeature(feature, layer) {
       // does this feature have a property named popupContent?
       if (feature.properties && feature.properties.issueddate) {
-          layer.bindPopup(feature.properties.issueddate + "<br>" + feature.properties.contractorname+ "<br>" + feature.properties.workclassgroup + "<br>" + feature.properties.communityname + "<br>" + feature.properties.originaladdress);
+          layer.bindPopup("Issue Date: " + feature.properties.issueddate + "<br>" + "Contractor Name: " + feature.properties.contractorname+ "<br>" + "Work Class Group: " +feature.properties.workclassgroup + "<br>" + "Community: " + feature.properties.communityname + "<br>" + "OG Address: " + feature.properties.originaladdress);
       }
   }
 //Code for silly easy geoJSON Labels
-  L.geoJSON(hey, {
+  L.geoJSON(QueryData, {
 
       pointToLayer: function (feature, latlng) {
           return L.circleMarker(latlng, geojsonMarkerOptions);
@@ -115,9 +113,7 @@
 </form>
 
 </script>
-<script>
 
-</script>
 </script>
   </body>
 </html>
