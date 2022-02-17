@@ -18,7 +18,7 @@ client = Socrata("data.calgary.ca", None)
 # dictionaries by sodapy.
 #results = client.get("c2es-76ed", limit=5000)#, query = ("&issueddate<2020-09-09"))
 query = ("https://data.calgary.ca/resource/c2es-76ed.json?"
-    "&issueddate=2020-09-09")
+    "&issueddate=2019-09-09")
 results = pd.read_json(query)
 
 # Convert to pandas DataFrame
