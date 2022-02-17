@@ -1,6 +1,6 @@
-#Symes-651-Lab2
-## by Andrew Symes
-##30033743
+# Symes-651-Lab2
+### by Andrew Symes
+### 30033743
 
 Web mapping application.  
     The user can specify a date range for displaying permits. These are then displayed on the map with a little box providing the information. The values will not present on top of each other as there is a little bump loop that will take care of it.
