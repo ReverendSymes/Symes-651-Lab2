@@ -46,8 +46,6 @@ def index():
             f"$where=issueddate+>+'{lb}'+and+issueddate+<+'{ub}'")
              #f"&issueddate={lb}")
          results = pd.read_json(query)
-         #results = client.get("c2es-76ed", limit=2000)
-         print(lb)
 
     # Convert to pandas DataFrame
     df = pd.DataFrame.from_records(results)
@@ -65,8 +63,6 @@ def index():
 
 
     cols = ['issueddate', 'workclassgroup', 'latitude', 'longitude', 'contractorname', 'communityname',"originaladdress"]
-    #cols = ['latitude', 'longitude','communityname',"originaladdress"]
-
     df_subset = df[cols]
     df_geo = df_subset.dropna(subset=['latitude', 'longitude'], axis=0, inplace=False)
 
@@ -81,21 +77,15 @@ def index():
                        'properties':{},
                        'geometry':{'type':'Point',
                                    'coordinates':[]}}
-
-            # fill in the coordinates
             feature['geometry']['coordinates'] = [row[lon],row[lat]]
 
-            # for each column, get the value and add it as a new feature property
             for prop in properties:
                 feature['properties'][prop] = row[prop]
-
-            # add this feature (aka, converted dataframe row) to the list of features inside our dict
             geojson['features'].append(feature)
 
         return geojson
 
     cols = ['issueddate', 'workclassgroup', 'contractorname', 'communityname',"originaladdress"]
-    #cols = ['latitude', 'longitude','communityname',"originaladdress"]
 
     Gengeojson = df_to_geojson(df_geo, cols)
 
