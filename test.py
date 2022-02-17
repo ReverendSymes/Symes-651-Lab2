@@ -17,14 +17,23 @@ client = Socrata("data.calgary.ca", None)
 # First 2000 results, returned as JSON from API / converted to Python list of
 # dictionaries by sodapy.
 #results = client.get("c2es-76ed", limit=5000)#, query = ("&issueddate<2020-09-09"))
-query = ("https://data.calgary.ca/resource/c2es-76ed.json?"
-    "&issueddate=2019-09-09")
+query = ("https://data.calgary.ca/resource/c2es-76ed.json?")
+    #"$where=date+between+'2015-01-10T00:00:00'+and+'2017-01-10T00:00:00'")
+    #"&issueddate=2019-09-09")
 results = pd.read_json(query)
 
 # Convert to pandas DataFrame
 df = pd.DataFrame.from_records(results)
 df['latitude'] = df['latitude'].astype(float)
 df['longitude'] = df['longitude'].astype(float)
+
+
+for i in range(0,len(df['latitude'])):
+    for j in range(0,len(df['longitude'])):
+        if df['latitude'][i] == df['latitude'][j]:
+            if df['longitude'][i] == df['longitude'][j]:
+                df['longitude'][j] = df['longitude'][j] + 0.01
+
 
 cols = ['issueddate', 'workclassgroup', 'latitude', 'longitude', 'contractorname', 'communityname',"originaladdress"]
 df_subset = df[cols]

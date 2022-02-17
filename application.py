@@ -29,7 +29,7 @@ def index():
     # First 2000 results, returned as JSON from API / converted to Python list of
     # dictionaries by sodapy.
     if request.method == "GET":
-        results = client.get("c2es-76ed" "&issueddate < ub", limit=2000)
+        results = client.get("c2es-76ed", limit=2000)
 
     if request.method == "POST":
          ub = request.form.get("ub")
@@ -42,6 +42,14 @@ def index():
     df = pd.DataFrame.from_records(results)
     df['latitude'] = df['latitude'].astype(float)
     df['longitude'] = df['longitude'].astype(float)
+
+    for i in range(0,len(df['latitude'])):
+        for j in range(0,len(df['longitude'])):
+            if df['latitude'][i] == df['latitude'][j]:
+                if df['longitude'][i] == df['longitude'][j]:
+                    df['longitude'][j] = df['longitude'][j] + 0.01
+
+
 
     cols = ['issueddate', 'workclassgroup', 'latitude', 'longitude', 'contractorname', 'communityname',"originaladdress"]
     #cols = ['latitude', 'longitude','communityname',"originaladdress"]
