@@ -17,8 +17,8 @@ client = Socrata("data.calgary.ca", None)
 # First 2000 results, returned as JSON from API / converted to Python list of
 # dictionaries by sodapy.
 #results = client.get("c2es-76ed", limit=5000)#, query = ("&issueddate<2020-09-09"))
-query = ("https://data.calgary.ca/resource/c2es-76ed.json?")
-    #"$where=date+between+'2015-01-10T00:00:00'+and+'2017-01-10T00:00:00'")
+query = ("https://data.calgary.ca/resource/c2es-76ed.json?"
+    "$where=issueddate+>+'2020-01-21'+and+issueddate+<+'2020-01-23'")
     #"&issueddate=2019-09-09")
 results = pd.read_json(query)
 

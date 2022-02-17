@@ -30,16 +30,15 @@ def index():
     # dictionaries by sodapy.
     if request.method == "GET":
         query = ("https://data.calgary.ca/resource/c2es-76ed.json?")
-            #"$where=date+between+'2015-01-10T00:00:00'+and+'2017-01-10T00:00:00'")
             #"&issueddate=2019-09-09")
         results = pd.read_json(query)
 
     if request.method == "POST":
          ub = request.form.get("ub")
          lb = request.form.get("lb")
-         results = client.get(f"c2es-76ed.json?permitnum=BP1999-07510", limit=2000)
          query = ("https://data.calgary.ca/resource/c2es-76ed.json?"
-             f"&issueddate={lb}")
+            f"$where=issueddate+>+'{lb}'+and+issueddate+<+'{ub}'")
+             #f"&issueddate={lb}")
          results = pd.read_json(query)
          #results = client.get("c2es-76ed", limit=2000)
          print(lb)
